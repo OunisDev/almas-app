@@ -1,6 +1,6 @@
 const Homepage = () => {
   return (
-    <div className=''>Almas App</div>
+    <div>Almas App</div>
   )
 }
 

@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import TeacherForm from "./forms/TeacherForm";
 
-const FormModal=({table,type,data,id}:{
+const FormModal=({table,type,data,id,}:{
     table:"teacher" | "student" | "parent" | "subject" | "class" | "lesson" | "exam" | "assignment" | "result" | "attendance" | "event" | "announcement";
     type: "create" | "update" | "delete";
     data?:any;
-    id:number;
+    id?:number;
 })=>{
     const size = type ==="create" ? "w-8 h-8" : "w-7 h-7";
     const bgColor = type === "create" ? "bg-lamaYellow" : type ==="update" ? "bg-lamaSky" : "bg-lamaPurple";
@@ -19,7 +20,7 @@ const FormModal=({table,type,data,id}:{
                 <button className="bg-red-700 text-white py-2 px-4 rounded-md border-none w-max self-center">Delete</button>
             </form>
         ) : (
-            "create or update form"
+            <TeacherForm type="create" />
         );
     };
 	return(
