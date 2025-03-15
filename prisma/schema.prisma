@@ -91,13 +91,13 @@ model Class{
   announcements Announcement[]
 }
 model Subject{
-  id Int @id @default(autoincrement)
+  id Int @id @default(autoincrement())
   name String @unique
   teachers Teacher[]
   lessons Lesson[]
 }
 model Lesson{
-  id Int @id @default(autoincrement)
+  id Int @id @default(autoincrement())
   name String
   day Day
   startTime DateTime
@@ -117,7 +117,7 @@ model Lesson{
   attendances Attendance[]
 }
 model Exam{
-  id Int @id @default(autoincrement)
+  id Int @id @default(autoincrement())
   title String
   startTime DateTime
   endTime DateTime
@@ -128,7 +128,7 @@ model Exam{
 
 }
 model Assignment{
-  id Int @id @default(autoincrement)
+  id Int @id @default(autoincrement())
   title String
   startDate DateTime
   dueDate DateTime
@@ -138,7 +138,7 @@ model Assignment{
   results Result[]
 }
 model Result{
-  id Int @id @default(autoincrement)
+  id Int @id @default(autoincrement())
   score Int
 
   examId Int?
@@ -149,7 +149,7 @@ model Result{
   student Student @relation(fields:[studentId], references:[id])
 }
 model Attendance{
-  id Int @id @default(autoincrement)
+  id Int @id @default(autoincrement())
   date DateTime
   present Boolean
 
@@ -160,7 +160,7 @@ model Attendance{
 
 }
 model Event{
-  id Int @id @default(autoincrement)
+  id Int @id @default(autoincrement())
   title String
   description String
   startTime DateTime
@@ -169,7 +169,7 @@ model Event{
   class Class? @relation(fields:[classId],references:[id])
 }
 model Announcement{
-  id Int @id @default(autoincrement)
+  id Int @id @default(autoincrement())
   title String
   description String
   date DateTime
