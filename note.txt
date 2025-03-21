@@ -1,0 +1,65 @@
+npm i prisma
+npx prisma init
+    schema.prisma
+    provider ="postgresql"
+    env("DATABASE_URL")
+    .env : DATABASE_URL
+
+schema.prisma : model table{
+    id int @id @default(autoincrement())
+    string?
+     @unique
+}
+model Student{
+
+    parentId String
+    parent Parent @relation(fields:[parentId],references:[id])
+}
+
+model Parent {
+    
+    students Student[]
+}
+
+install docker desktop
+    sudo apt install gnome-terminal
+    sudo apt-get update
+    sudo apt-get install ./docker-desktop-amd64.deb
+    systemctl --user enable docker-desktop
+
+install postgres
+Container name : postgres
+Ports : 5432
+Env variables
+    POSTGRES_USER :ROOT
+    POSTGRES_PASSWORD :PASSWORD
+    POSTGRES_DB :DB
+*RUN*
+*UPDATE* .env : DATABASE_URL
+
+npx prisma migrate dev --name init
+*prisma - migrations -db.sql*
+npx prisma studio
+http://localhost:5555/
+
+
+*add to package.json
+"prisma":{
+    "seed":"ts-node prisma/seed.ts"
+},
+*
+npm i -d ts-node
+*UPDATE
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  }
+*up
+npm i -d ts-node
+*install Prisma client
+npm install @prisma/client
+*create file /lib/prisma.ts
+copy from internet
+
+npx prisma db seed
+*if error
+npx prisma migrate reset
