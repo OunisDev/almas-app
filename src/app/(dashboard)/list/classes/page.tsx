@@ -54,7 +54,7 @@ const renderRow = (item: ClassList) => (
     <td className="hidden md:table-cell">{item.capacity}</td>
     <td className="hidden md:table-cell">{item.name[0]}</td>
     <td className="hidden md:table-cell">
-      {item.supervisor.username + "" + item.supervisor.surname}
+      {item.supervisor.username + " " + item.supervisor.surname}
     </td>
 
     <td>
