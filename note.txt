@@ -1,0 +1,56 @@
+1-src-app-dashboard-list-parents-page.tsx
+2-comment type parent={}
+3-cut const renderRow=(item:Parent)  outside const ParentListPage()
+4-paste bellow code before const ParentListPage()
+5-change StudentListPage to ParentListPage
+6-import prisma
+7-StudentWhereInput to ParentWhereInput
+8- change "type Parent" to "type ParentList"
+9-if we need other table : type ParentList = Parent & {students:Student};
+10-change const renderRow =(item:Parent)=>(
+  to const renderRow =(item:ParentList)=>(
+********
+const StudentListPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) => {
+  const { page, ...queryParams } = searchParams;
+  const p = page ? parseInt(page) : 1;
+
+  //URL PARAMS CONDITION
+  const query: Prisma.StudentWhereInput = {};
+
+  if (queryParams) {
+    for (const [key, value] of Object.entries(queryParams)) {
+      if (value !== undefined) {
+        switch (key) {
+          case "teacherId":
+            query.class = {
+              lessons: {
+                some: {
+                  teacherId: value,
+                },
+              },
+            };
+            break;
+          case "search":
+            query.name = { contains: value, mode: "insensitive" };
+            break;
+            default:
+            break;
+        }
+      }
+    }
+  }
+  const [data, count] = await prisma.$transaction([
+    prisma.student.findMany({
+      where: query,
+      include: {
+        class: true,
+      },
+      take: ITEM_PER_PAGE,
+      skip: ITEM_PER_PAGE * (p - 1),
+    }),
+    prisma.student.count({ where: query }),
+  ]);
